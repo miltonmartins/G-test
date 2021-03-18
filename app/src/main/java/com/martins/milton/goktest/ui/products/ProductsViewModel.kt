@@ -5,20 +5,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.martins.milton.goktest.data.common.repositories.ProductsRepository
+import com.martins.milton.goktest.data.common.repositories.ProfileRepository
 import com.martins.milton.goktest.data.local.models.ProductDetail
+import com.martins.milton.goktest.data.remote.models.AccountResponse
 import com.martins.milton.goktest.data.remote.models.ProductsResponse
-import com.martins.milton.goktest.utils.ext.customLaunch
+import com.martins.milton.goktest.utils.ext.launchZip
 import javax.inject.Inject
 
 sealed class ProductsState {
-    data class ShowProducts(val products: ProductsResponse) : ProductsState()
+    data class ShowProductsAndAccount(
+        val products: ProductsResponse,
+        val account: AccountResponse
+    ) : ProductsState()
+
     data class Loading(val loading: Boolean) : ProductsState()
     data class Error(val message: String?) : ProductsState()
     data class OpenProductDetails(val product: ProductDetail) : ProductsState()
 }
 
 sealed class ProductsIntent {
-    object LoadProducts : ProductsIntent()
+    object LoadProductsAndAccountDetails : ProductsIntent()
     data class GoToProductDetails(
         val name: String,
         val description: String,
@@ -27,7 +33,8 @@ sealed class ProductsIntent {
 }
 
 class ProductsViewModel @Inject constructor(
-    private val repository: ProductsRepository
+    private val productsRepository: ProductsRepository,
+    private val profileRepository: ProfileRepository
 ) : ViewModel() {
 
     private val _stateProducts = MutableLiveData<ProductsState>()
@@ -36,7 +43,7 @@ class ProductsViewModel @Inject constructor(
 
     fun handleProductsIntent(intent: ProductsIntent) {
         when (intent) {
-            ProductsIntent.LoadProducts -> loadProducts()
+            ProductsIntent.LoadProductsAndAccountDetails -> loadProductsAndAccount()
             is ProductsIntent.GoToProductDetails -> goToProductDetails(
                 name = intent.name,
                 description = intent.description,
@@ -45,11 +52,21 @@ class ProductsViewModel @Inject constructor(
         }
     }
 
-    private fun loadProducts() {
-        viewModelScope.customLaunch(
-            blockToRun = { repository.getProducts() },
+    private fun loadProductsAndAccount() {
+        viewModelScope.launchZip(
+            blockToRun = {
+                Pair(
+                    first = productsRepository.getProducts(),
+                    second = profileRepository.getAccount()
+                )
+            },
             onLoading = { _stateProducts.value = ProductsState.Loading(it) },
-            onSuccess = { _stateProducts.value = ProductsState.ShowProducts(it) },
+            onSuccess = { (products, account) ->
+                _stateProducts.value = ProductsState.ShowProductsAndAccount(
+                    products = products,
+                    account = account
+                )
+            },
             onError = { _stateProducts.value = ProductsState.Error(it.message) }
         )
     }

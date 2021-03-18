@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.martins.milton.goktest.base.BaseTest
 import com.martins.milton.goktest.data.ProductsMock
 import com.martins.milton.goktest.data.common.repositories.ProductsRepository
+import com.martins.milton.goktest.data.common.repositories.ProfileRepository
 import com.nhaarman.mockitokotlin2.atLeastOnce
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
@@ -15,7 +16,10 @@ import org.mockito.Mock
 class ProductsViewModelTest : BaseTest() {
 
     @Mock
-    private lateinit var repository: ProductsRepository
+    private lateinit var productsRepository: ProductsRepository
+
+    @Mock
+    private lateinit var profileRepository: ProfileRepository
 
     @Mock
     private lateinit var stateObserver: Observer<ProductsState>
@@ -26,19 +30,21 @@ class ProductsViewModelTest : BaseTest() {
     @Before
     fun setup() {
         viewModel = ProductsViewModel(
-            repository = repository
+            productsRepository = productsRepository,
+            profileRepository = profileRepository
         )
 
         viewModel.stateProducts.observeForever(stateObserver)
     }
 
     @Test
-    fun `WHEN get products THEN must show products`() = runBlocking {
+    fun `WHEN get products and account details THEN must show products and account name`() = runBlocking {
         //Arrange
-        whenever(repository.getProducts()).thenReturn(dataMock.productsResponse)
+        whenever(productsRepository.getProducts()).thenReturn(dataMock.productsResponse)
+        whenever(profileRepository.getAccount()).thenReturn(dataMock.account)
 
         //Act
-        viewModel.handleProductsIntent(ProductsIntent.LoadProducts)
+        viewModel.handleProductsIntent(ProductsIntent.LoadProductsAndAccountDetails)
 
         //Assert
         verify(
@@ -52,7 +58,12 @@ class ProductsViewModelTest : BaseTest() {
         verify(
             mock = stateObserver,
             mode = atLeastOnce()
-        ).onChanged(ProductsState.ShowProducts(dataMock.productsResponse))
+        ).onChanged(
+            ProductsState.ShowProductsAndAccount(
+                products = dataMock.productsResponse,
+                account = dataMock.account
+            )
+        )
     }
 
     @Test

@@ -32,3 +32,30 @@ fun <T> CoroutineScope.customLaunch(
     }
 }
 
+fun <T, R> CoroutineScope.launchZip(
+    blockToRun: suspend CoroutineScope.() -> Pair<T, R>,
+    onLoading: ((Boolean) -> Unit)? = null,
+    onError: ((Exception) -> Unit)? = null,
+    onSuccess: ((Pair<T, R>) -> Unit)? = null
+) {
+    launch {
+        withContext(Dispatchers.Main) {
+            onLoading?.invoke(true)
+        }
+        try {
+            val result = withContext(Dispatchers.IO) {
+                return@withContext blockToRun()
+            }
+            withContext(Dispatchers.Main) {
+                onLoading?.invoke(false)
+                onSuccess?.invoke(result)
+            }
+        } catch (exception: Exception) {
+            withContext(Dispatchers.Main) {
+                onLoading?.invoke(false)
+                onError?.invoke(exception)
+            }
+        }
+    }
+}
+

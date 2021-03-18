@@ -1,10 +1,7 @@
 package com.martins.milton.goktest.data
 
 import com.martins.milton.goktest.data.local.models.ProductDetail
-import com.martins.milton.goktest.data.remote.models.CashResponse
-import com.martins.milton.goktest.data.remote.models.ItemProductResponse
-import com.martins.milton.goktest.data.remote.models.ProductsResponse
-import com.martins.milton.goktest.data.remote.models.SpotlightResponse
+import com.martins.milton.goktest.data.remote.models.*
 
 data class ProductsMock(
     val productsResponse: ProductsResponse = ProductsResponse(
@@ -43,5 +40,6 @@ data class ProductsMock(
         name = product.name,
         description = product.description,
         image = product.imageURL
-    )
+    ),
+    val account: AccountResponse = AccountResponse(name = "Maria")
 )
