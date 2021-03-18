@@ -1,43 +1,89 @@
+import com.martins.milton.Dependencies
+import com.martins.milton.Versions
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion Versions.DefaultConfig.compileSdk
+    buildToolsVersion Versions.DefaultConfig.buildTools
 
     defaultConfig {
-        applicationId "com.martins.milton.goktest"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId Versions.DefaultConfig.applicationId
+        minSdkVersion Versions.DefaultConfig.minSdk
+        targetSdkVersion Versions.DefaultConfig.targetSdk
+        versionCode Versions.DefaultConfig.versionCode
+        versionName Versions.DefaultConfig.versionName
     }
 
     buildTypes {
+        debug {
+            debuggable true
+            applicationIdSuffix ".debug"
+            versionNameSuffix '-DEBUG'
+            buildConfigField "String", "ENDPOINT", "\"https://7hgi9vtkdc.execute-api.sa-east-1.amazonaws.com/sandbox/\""
+        }
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "ENDPOINT", "\"https://7hgi9vtkdc.execute-api.sa-east-1.amazonaws.com/sandbox/\""
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = Versions.Core.java
     }
+
+    buildFeatures {
+        viewBinding true
+    }
+
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // CORE
+    implementation Dependencies.Core.kotlinStdLib
+    implementation Dependencies.Core.kotlinCore
+
+    // UI
+    implementation Dependencies.UI.appCompat
+    implementation Dependencies.UI.material
+    implementation Dependencies.UI.constraint
+    implementation Dependencies.UI.swipeRefresh
+    implementation Dependencies.UI.navigation
+    implementation Dependencies.UI.navigationUi
+
+    // DI
+    implementation Dependencies.DI.dagger
+    implementation Dependencies.DI.daggerAndroid
+    implementation Dependencies.DI.daggerAndroidSupport
+    kapt Dependencies.DI.daggerAndroidProcessor
+    kapt Dependencies.DI.daggerCompiler
+
+    // ARCHITECTURE
+    implementation Dependencies.Core.coroutines
+    implementation Dependencies.Core.coroutinesViewModel
+
+    // NETWORK
+    implementation Dependencies.Network.retrofit
+    implementation Dependencies.Network.gson
+    implementation Dependencies.Network.retrofitGson
+    implementation Dependencies.Network.httpLogInterceptor
+
+    // TESTS
+    testImplementation Dependencies.Tests.junit
+    testImplementation Dependencies.Tests.testCore
+    testImplementation Dependencies.Tests.mockito
+    testImplementation Dependencies.Tests.mockitoKotlin
+    testImplementation Dependencies.Tests.coroutinesTest
+    testImplementation Dependencies.Tests.coroutinesAndroidTest
 }
