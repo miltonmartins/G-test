@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextStyle">
+        <item name="android:textColor">?attr/colorSecondary</item>
+    </style>
+
+    <style name="TextStyle.Caption" parent="TextStyle">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextStyle.SubHeading" parent="TextStyle">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RecyclerFade">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">@dimen/fade_length</item>
+        <item name="android:requiresFadingEdge">horizontal</item>
+    </style>
+</resources>

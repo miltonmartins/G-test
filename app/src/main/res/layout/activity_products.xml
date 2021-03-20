@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/products_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_padding_size_small"
+    tools:context=".ui.products.ProductsActivity">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/main_ml"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layoutDescription="@xml/activity_products_scene"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/main_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_padding_size_medium"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/account_details_cl"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/margin_padding_size_small"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/profile_name_tv"
+                    style="@style/TextStyle.SubHeading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_padding_size_small"
+                    app:layout_constraintBottom_toBottomOf="@id/account_iv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/account_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/full_names" />
+
+                <ImageView
+                    android:id="@+id/account_iv"
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@drawable/ic_account" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/spotlight_rv"
+                style="@style/RecyclerFade"
+                android:layout_height="0dp"
+                android:layout_weight="4.5"
+                app:layout_constraintTop_toBottomOf="@id/account_details_cl"
+                tools:listitem="@layout/item_spotlight"
+                tools:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/main_banner_ll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_padding_size_medium"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/main_banner_title_tv"
+                    style="@style/TextStyle.Caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_padding_size_small"
+                    tools:text="@tools:sample/full_names" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/main_banner_cv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/corner_medium"
+                    app:cardElevation="@dimen/corner_medium"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/main_banner_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        tools:src="@drawable/ic_launcher_background" />
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/products_ll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_padding_size_medium"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/products_title_tv"
+                    style="@style/TextStyle.Caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_padding_size_small"
+                    android:text="@string/products_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/products_rv"
+                    style="@style/RecyclerFade"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_product"
+                    tools:orientation="horizontal" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+

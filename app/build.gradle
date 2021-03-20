@@ -61,6 +61,10 @@ dependencies {
     implementation Dependencies.UI.swipeRefresh
     implementation Dependencies.UI.navigation
     implementation Dependencies.UI.navigationUi
+    implementation Dependencies.UI.glide
+    kapt Dependencies.UI.glideProcessor
+
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
 
     // DI
     implementation Dependencies.DI.dagger

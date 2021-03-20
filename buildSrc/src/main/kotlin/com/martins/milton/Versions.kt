@@ -37,6 +37,7 @@ object Versions {
         const val constraint = "2.0.4"
         const val swipeRefresh = "1.1.0"
         const val navigationComponent = "2.3.3"
+        const val glide = "4.12.0"
     }
 
     object Network {

@@ -20,6 +20,8 @@ object Dependencies {
         const val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.UI.navigationComponent}"
         const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.UI.navigationComponent}"
         const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.UI.navigationComponent}"
+        const val glide = "com.github.bumptech.glide:glide:${Versions.UI.glide}"
+        const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.UI.glide}"
     }
 
     object Network {

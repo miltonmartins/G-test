@@ -41,5 +41,8 @@ data class ProductsMock(
         description = product.description,
         image = product.imageURL
     ),
-    val account: AccountResponse = AccountResponse(name = "Maria")
+    val account: AccountResponse = AccountResponse(
+        name = "Maria",
+        photoUrl = "https://br.web.img3.acsta.net/newsv7/20/06/04/15/14/4885819.jpg"
+    )
 )

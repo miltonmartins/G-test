@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/card_product_size"
+    android:layout_height="@dimen/card_product_size"
+    app:cardCornerRadius="@dimen/corner_medium"
+    app:cardElevation="@dimen/corner_medium"
+    app:cardUseCompatPadding="true">
+
+    <ImageView
+        android:id="@+id/item_product_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        tools:src="@drawable/ic_launcher_background" />
+
+</com.google.android.material.card.MaterialCardView>
