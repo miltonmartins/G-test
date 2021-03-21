@@ -28,7 +28,7 @@
     <!-- STUFF -->
     <dimen name="card_product_size">150dp</dimen>
     <dimen name="avatar_size">40dp</dimen>
-    <dimen name="fade_length">50dp</dimen>
+    <dimen name="fade_length">100dp</dimen>
     <dimen name="progress_indicator_stroke_width">5dp</dimen>
     <dimen name="progress_indicator_radius">30dp</dimen>
 </resources>
