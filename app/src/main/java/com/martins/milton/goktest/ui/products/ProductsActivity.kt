@@ -120,6 +120,9 @@ class ProductsActivity : DaggerAppCompatActivity() {
         productsRl.setOnRefreshListener {
             viewModel.handleProductsIntent(ProductsIntent.LoadProductsAndAccountDetails)
         }
+        backdropView.setOnClickListener {
+            mainMl.transitionToStart()
+        }
     }
 
     private fun setLoading(loading: Boolean) = binding.run {
@@ -184,8 +187,15 @@ class ProductsActivity : DaggerAppCompatActivity() {
         productsAdapter.items = products
     }
 
-    private fun openProductDetails(product: ProductDetail) {
-        baseContext.showMessage(product.name)
+    private fun openProductDetails(product: ProductDetail) = binding.run {
+        productTitleTv.text = product.name
+        productDescriptionTv.text = product.description
+        imageHelper.loadImage(
+            url = product.image,
+            view = productDetailsImageIv
+        )
+
+        mainMl.transitionToEnd()
     }
 
 }

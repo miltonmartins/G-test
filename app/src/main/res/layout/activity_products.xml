@@ -5,7 +5,6 @@
     android:id="@+id/products_rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_padding_size_small"
     tools:context=".ui.products.ProductsActivity">
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -22,6 +21,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_padding_size_medium"
             android:orientation="vertical"
+            android:padding="@dimen/margin_padding_size_small"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,6 +120,66 @@
                     tools:orientation="horizontal" />
             </LinearLayout>
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/product_details_cl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/corner_medium"
+            android:paddingBottom="@dimen/margin_padding_size_xxlarge"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/product_details_image_iv"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/product_details_close_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="@dimen/margin_padding_size_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_down" />
+
+            <TextView
+                android:id="@+id/product_title_tv"
+                style="@style/TextStyle.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                android:layout_marginTop="@dimen/margin_padding_size_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/product_details_image_iv" />
+
+            <TextView
+                android:id="@+id/product_description_tv"
+                style="@style/TextStyle.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_padding_size_medium"
+                android:layout_marginTop="@dimen/margin_padding_size_small"
+                android:layout_marginBottom="@dimen/margin_padding_size_xxlarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/product_title_tv" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/backdrop_view"
+            android:visibility="gone"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

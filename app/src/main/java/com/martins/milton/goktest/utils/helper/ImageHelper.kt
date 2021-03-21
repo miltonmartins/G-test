@@ -26,10 +26,12 @@ class ImageHelper(private val context: Context) {
         when (cropType) {
             CropType.CIRCULAR -> {
                 options.circleCrop()
-                options.error(context.getDrawableCompat(R.drawable.ic_account))
+                options.error(R.drawable.ic_account)
+                options.placeholder(getProgressDrawable())
             }
             else -> {
-                options.error(context.getDrawableCompat(R.drawable.no_image))
+                options.error(context.getDrawableCompat(R.drawable.ic_no_image))
+                options.placeholder(getProgressDrawable())
             }
         }
 
@@ -37,7 +39,6 @@ class ImageHelper(private val context: Context) {
             .with(context)
             .load(url)
             .apply(options)
-            .placeholder(getProgressDrawable())
             .signature(ObjectKey(url))
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(view)
